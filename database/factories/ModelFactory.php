@@ -68,15 +68,16 @@ $factory->define(Fce\Models\Section::class, function (Faker\Generator $faker) {
         'class_time' => $faker->time(),
         'location' => $faker->sentence,
         'status' => 'Locked',
-        'enrolled' => 1,
+        'enrolled' => 2,
     ];
 });
 
-$factory->define(Fce\Models\Evaluation::class, function () {
-    $evaluation_scores = $faker->shuffle([1, 0, 0, 0, 0]);
+
+$factory->define(Fce\Models\Evaluation::class, function (Faker\Generator $faker) {
+    $evaluation_scores = $faker->shuffle([1, 0, 1, 0, 0]);
     return [
-        'section_id' => 1,
-        'question_id' => 1,
+        'section_id' => $faker->randomNumber(10),
+        'question_id' => $faker->randomNumber(33),
         'one' => $evaluation_scores[0],
         'two' => $evaluation_scores[1],
         'three' => $evaluation_scores[2],
