@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(QuestionTableSeeder::class);
         $this->call(QuestionSetTableSeeder::class);
         $this->call(QuestionQuestionSetTableSeeder::class);
+        factory(Fce\Models\Semester::class)->create();
         factory(Fce\Models\Section::class)->create();
         factory(Fce\Models\Evaluation::class)->create();
 
