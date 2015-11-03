@@ -74,7 +74,7 @@ $factory->define(Fce\Models\Section::class, function (Faker\Generator $faker) {
 
 
 $factory->define(Fce\Models\Evaluation::class, function (Faker\Generator $faker) {
-    for ($idx = 0; $idx < 34; $idx++) {
+    for ($idx = 1; $idx < 34; $idx++) {
         if ($idx >= 16) {
             $question_set_id = 2;
         } else {
