@@ -34,11 +34,11 @@ class QuestionsRepository extends AbstractRepository implements IQuestionsReposi
             );
 
             if (is_null($data['query'])) {
-                $question_set = $this->question_set_model->orderBy($data['sort'].$data['order'])
+                $question_set = $this->question_set_model->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             } else {
                 $question_set = $this->question_set_model->where('crn', 'like', '%'.$data['query'].'%')
-                    ->orderBy($data['sort'].$data['order'])
+                    ->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             }
 

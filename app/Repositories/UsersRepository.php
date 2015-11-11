@@ -31,11 +31,11 @@ class UsersRepository extends AbstractRepository implements IUsersRepository
             );
 
             if (is_null($data['query'])) {
-                $users = $this->user_model->orderBy($data['sort'].$data['order'])
+                $users = $this->user_model->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             } else {
                 $users = $this->user_model->where('crn', 'like', '%'.$data['query'].'%')
-                    ->orderBy($data['sort'].$data['order'])
+                    ->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             }
 

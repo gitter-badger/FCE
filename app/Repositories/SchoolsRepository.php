@@ -31,11 +31,11 @@ class SchoolsRepository extends AbstractRepository implements ISchoolsRepository
             );
 
             if (is_null($data['query'])) {
-                $schools = $this->school_model->orderBy($data['sort'].$data['order'])
+                $schools = $this->school_model->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             } else {
                 $schools = $this->school_model->where('crn', 'like', '%'.$data['query'].'%')
-                    ->orderBy($data['sort'].$data['order'])
+                    ->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             }
 

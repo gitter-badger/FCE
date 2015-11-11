@@ -32,11 +32,11 @@ class SemestersRepository extends AbstractRepository implements ISemestersReposi
             );
 
             if (is_null($data['query'])) {
-                $semesters = $this->semester_model->orderBy($data['sort'].$data['order'])
+                $semesters = $this->semester_model->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             } else {
                 $semesters = $this->semester_model->where('crn', 'like', '%'.$data['query'].'%')
-                    ->orderBy($data['sort'].$data['order'])
+                    ->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             }
 

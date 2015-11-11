@@ -39,13 +39,13 @@ class EvaluationsRepository extends AbstractRepository implements IEvaluationsRe
             if (is_null($data['query'])) {
                 $evaluation_section = $this->section_model->semester()
                     ->where('current_semester', true)
-                    ->orderBy($data['sort'].$data['order'])
+                    ->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             } else {
                 $evaluation_section = $this->section_model->where('crn', 'like', '%'.$data['query'].'%')
                     ->semester()
                     ->where('current_semester', true)
-                    ->orderBy($data['sort'].$data['order'])
+                    ->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             }
 

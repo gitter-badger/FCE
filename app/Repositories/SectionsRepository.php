@@ -40,11 +40,11 @@ class SectionsRepository extends AbstractRepository implements ISectionsReposito
             );
 
             if (is_null($data['query'])) {
-                $sections = $this->section_model->orderBy($data['sort'].$data['order'])
+                $sections = $this->section_model->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             } else {
                 $sections = $this->section_model->where('crn', 'like', '%'.$data['query'].'%')
-                    ->orderBy($data['sort'].$data['order'])
+                    ->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             }
 
