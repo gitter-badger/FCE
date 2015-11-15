@@ -54,7 +54,12 @@ class SchoolsRepository extends AbstractRepository implements ISchoolsRepository
     public function getSchoolById($school_id)
     {
         try {
-
+            $school = $this->school_model->where('id', $school_id)->first();
+            if (is_null($school)) {
+                return false;
+            } else {
+                return self::transform($school, new SchoolTransformer());
+            }
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -63,16 +68,30 @@ class SchoolsRepository extends AbstractRepository implements ISchoolsRepository
     public function createSchool($data)
     {
         try {
+            $school = $this->school_model;
+            $school->school = $data['school'];
+            $school->description = $data['description'];
+            $school->save();
 
+            return self::transform($school, new SchoolTransformer());
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
     }
 
-    public function updateSchoolById($school_id)
+    public function updateSchoolById($data)
     {
         try {
-
+            $school = $this->school_model->where('id', $data['school_id'])->first();
+            if (is_null($school)) {
+                return false;
+            } else {
+                $school->school = (isset($data['school']) ? $data['school'] : $school->school);
+                $school->description = (isset($data['description']) ? $data['description'] : $school->description);
+                $school->save();
+                
+                return self::transform($school, new SchoolTransformer());
+            }
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
