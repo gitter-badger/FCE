@@ -38,7 +38,7 @@ class EvaluationsRepositoryTest extends \TestCase
         $params = ['query' => null, 'order' => 'ASC', 'sort' => 'created_at', 'limit' => 5, 'offset' => 1];
 
         $result = $this->evaluation_repository->getEvaluationSections($params);
-        $this->assertNotEmpty($result);
+        $this->assertNotEmpty($result['data']);
     }
 
     public function testGetEvaluationSectionsQuery()
@@ -46,7 +46,7 @@ class EvaluationsRepositoryTest extends \TestCase
         $params = ['query' => 'fake_query', 'order' => 'ASC', 'sort' => 'created_at', 'limit' => 5, 'offset' => 1];
 
         $result = $this->evaluation_repository->getEvaluationSections($params);
-        $this->assertNotEmpty($result);
+        $this->assertNotEmpty($result['data']);
     }
 
     public function testGetEvaluationSectionsNull()
@@ -54,7 +54,7 @@ class EvaluationsRepositoryTest extends \TestCase
         $params = ['query' => 'x*(', 'order' => 'ASC', 'sort' => 'created_at', 'limit' => 5, 'offset' => 1];
 
         $result = $this->evaluation_repository->getEvaluationSections($params);
-        $this->assertNull($result);
+        $this->assertNull($result['data']);
     }
 
     public function testGetEvaluationSectionsErrorException()
@@ -64,7 +64,11 @@ class EvaluationsRepositoryTest extends \TestCase
         $this->section_model = $this->getMock(Section::class, ['where']);
         $this->section_model->expects($this->any())->method('where')->willThrowException(new \Exception);
 
-        $this->app->instance($this->evaluation_repository, $this->section_model);
+        $this->evaluation_repository = new EvaluationsRepository(
+            $this->evaluation_model,
+            $this->section_model,
+            $this->key_model
+        );
         $this->evaluation_repository->getEvaluationSections([]);
     }
 }
