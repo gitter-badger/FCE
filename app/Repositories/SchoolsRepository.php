@@ -34,7 +34,7 @@ class SchoolsRepository extends AbstractRepository implements ISchoolsRepository
                 $schools = $this->school_model->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             } else {
-                $schools = $this->school_model->where('crn', 'like', '%'.$data['query'].'%')
+                $schools = $this->school_model->where('school', 'like', '%'.$data['query'].'%')
                     ->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             }
