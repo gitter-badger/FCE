@@ -35,17 +35,36 @@ class EvaluationsRepositoryTest extends \TestCase
 
     public function testGetEvaluationSections()
     {
-        $params = ['query' => 'fake_query', 'order' => 'ASC', 'sort' => 'created_at', 'limit' => 5, 'offset' => 1];
-
-        $result = $this->evaluation_repository->getEvaluationSections($params);
-        $this->assertEmpty($result);
-    }
-
-    public function testGetEvaluationSectionsNull()
-    {
         $params = ['query' => null, 'order' => 'ASC', 'sort' => 'created_at', 'limit' => 5, 'offset' => 1];
 
         $result = $this->evaluation_repository->getEvaluationSections($params);
         $this->assertNotEmpty($result);
+    }
+
+    public function testGetEvaluationSectionsQuery()
+    {
+        $params = ['query' => 'fake_query', 'order' => 'ASC', 'sort' => 'created_at', 'limit' => 5, 'offset' => 1];
+
+        $result = $this->evaluation_repository->getEvaluationSections($params);
+        $this->assertNotEmpty($result);
+    }
+
+    public function testGetEvaluationSectionsNull()
+    {
+        $params = ['query' => 'x*(', 'order' => 'ASC', 'sort' => 'created_at', 'limit' => 5, 'offset' => 1];
+
+        $result = $this->evaluation_repository->getEvaluationSections($params);
+        $this->assertNull($result);
+    }
+
+    public function testGetEvaluationSectionsErrorException()
+    {
+        $this->setExpectedException('\Exception');
+
+        $this->section_model = $this->getMock(Section::class, ['where']);
+        $this->section_model->expects($this->any())->method('where')->willThrowException(new \Exception);
+
+        $this->app->instance($this->evaluation_repository, $this->section_model);
+        $this->evaluation_repository->getEvaluationSections([]);
     }
 }
