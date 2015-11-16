@@ -35,7 +35,7 @@ class SemestersRepository extends AbstractRepository implements ISemestersReposi
                 $semesters = $this->semester_model->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             } else {
-                $semesters = $this->semester_model->where('crn', 'like', '%'.$data['query'].'%')
+                $semesters = $this->semester_model->where('semester', 'like', '%'.$data['query'].'%')
                     ->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             }
@@ -51,19 +51,31 @@ class SemestersRepository extends AbstractRepository implements ISemestersReposi
         }
     }
 
-    public function getCurrentSemester()
+    public function setCurrentSemester($semester_id)
     {
         try {
-
+            $semester = $this->semester_model->where('id', $semester_id)->first();
+            if (is_null($semester)) {
+                return false;
+            } else {
+                $semester->current_semester = true;
+                $semester->save();
+                return self::transform($semester, new SemesterTransformer());
+            }
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
     }
 
-    public function setCurrentSemester($semester_id)
+    public function getCurrentSemester()
     {
         try {
-
+            $semester = $this->semester_model->where('current_semester', true)->first();
+            if (is_null($semester)) {
+                return false;
+            } else {
+                return self::transform($semester, new SemesterTransformer());
+            }
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -72,7 +84,12 @@ class SemestersRepository extends AbstractRepository implements ISemestersReposi
     public function createSemester($data)
     {
         try {
+            $semester = $this->semester_model;
+            $semester->semester = $data['semester'];
+            $semester->current_semester = $data['current_semester'];
+            $semester->save();
 
+            return self::transform($semester, new SemesterTransformer());
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }

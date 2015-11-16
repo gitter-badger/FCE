@@ -12,9 +12,9 @@ interface ISemestersRepository
 {
     public function getSemesters($data);
 
-    public function getCurrentSemester();
-
     public function setCurrentSemester($semester_id);
+
+    public function getCurrentSemester();
 
     public function createSemester($data);
 }
