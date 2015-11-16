@@ -40,6 +40,7 @@ $factory->define(Fce\Models\QuestionSet::class, function (Faker\Generator $faker
 $factory->define(Fce\Models\Semester::class, function (Faker\Generator $faker) {
     return [
         'semester' => $faker->word,
+        'current_semester' => false,
     ];
 });
 
