@@ -37,7 +37,7 @@ class QuestionsRepository extends AbstractRepository implements IQuestionsReposi
                 $question_set = $this->question_set_model->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             } else {
-                $question_set = $this->question_set_model->where('crn', 'like', '%'.$data['query'].'%')
+                $question_set = $this->question_set_model->where('name', 'like', '%'.$data['query'].'%')
                     ->orderBy($data['sort'], $data['order'])
                     ->paginate($data['limit']);
             }
@@ -56,7 +56,12 @@ class QuestionsRepository extends AbstractRepository implements IQuestionsReposi
     public function getQuestionsByQuestionSetId($question_set_id)
     {
         try {
-
+            $question_set = $this->question_set_model->where('id', $question_set_id)->first();
+            if (is_null($question_set)) {
+                return false;
+            } else {
+                return self::transform($question_set, new QuestionSetTransformer());
+            }
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
