@@ -24,7 +24,7 @@ class QuestionsRepository extends AbstractRepository implements IQuestionsReposi
         $this->question_model = $question;
     }
 
-    public function getQuestionsByQuestionSet($data, $question_set_id)
+    public function getQuestionsByQuestionSet($data)
     {
         try {
             Paginator::currentPageResolver(
@@ -53,6 +53,15 @@ class QuestionsRepository extends AbstractRepository implements IQuestionsReposi
         }
     }
 
+    public function getQuestionsByQuestionSetId($question_set_id)
+    {
+        try {
+
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
     public function createQuestionSetQuestions($data)
     {
         try {
@@ -71,7 +80,7 @@ class QuestionsRepository extends AbstractRepository implements IQuestionsReposi
         }
     }
 
-    public function createNewQuestionSetQuestionsBySetId($data, $question_set_id)
+    public function createNewQuestionSetQuestionsBySetId($data)
     {
         try {
 

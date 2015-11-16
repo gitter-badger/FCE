@@ -10,11 +10,13 @@ namespace Fce\Repositories;
 
 interface IQuestionsRepository
 {
-    public function getQuestionsByQuestionSet($data, $question_set_id);
+    public function getQuestionsByQuestionSet($data);
+
+    public function getQuestionsByQuestionSetId($question_set_id);
 
     public function createQuestionSetQuestions($data);
 
     public function createNewQuestionSetQuestions($data);
 
-    public function createNewQuestionSetQuestionsBySetId($data, $question_set_id);
+    public function createNewQuestionSetQuestionsBySetId($data);
 }
