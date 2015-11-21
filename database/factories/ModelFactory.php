@@ -22,7 +22,7 @@ $factory->define(Fce\Models\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Fce\Models\Role::class, function (Faker\Generator $faker) {
-    $role = $faker->randomElement(['admin', 'dean', 'executive', 'faculty', 'secretary']);
+    $role = $faker->randomElement(['admin', 'dean', 'executive', 'faculty', 'secretary', 'sga']);
     return [
         'role' => $role,
         'display_name' => ucfirst($role),
