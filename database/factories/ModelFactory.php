@@ -74,26 +74,19 @@ $factory->define(Fce\Models\Section::class, function (Faker\Generator $faker) {
 
 
 $factory->define(Fce\Models\Evaluation::class, function (Faker\Generator $faker) {
-    for ($idx = 1; $idx < 34; $idx++) {
-        if ($idx >= 16) {
-            $question_set_id = 2;
-        } else {
-            $question_set_id = 1;
-        }
+    $evaluation_scores = $faker->shuffle([1, 0, 1, 0, 0]);
+    return [
+        'section_id' => 1,
+        'question_id' => $faker->$randomNumber(34),
+        'question_set_id' => $faker->randomNumber(2),
+        'one' => $evaluation_scores[0],
+        'two' => $evaluation_scores[1],
+        'three' => $evaluation_scores[2],
+        'four' => $evaluation_scores[3],
+        'five' => $evaluation_scores[4],
+        'comment' => $faker->sentence(5),
+    ];
 
-        $evaluation_scores = $faker->shuffle([1, 0, 1, 0, 0]);
-        return [
-            'section_id' => 1,
-            'question_id' => $idx,
-            'question_set_id' => $question_set_id,
-            'one' => $evaluation_scores[0],
-            'two' => $evaluation_scores[1],
-            'three' => $evaluation_scores[2],
-            'four' => $evaluation_scores[3],
-            'five' => $evaluation_scores[4],
-            'comment' => $faker->sentence(5),
-        ];
-    }
 });
 
 $factory->define(Fce\Models\Key::class, function () {

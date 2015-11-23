@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(QuestionQuestionSetTableSeeder::class);
         factory(Fce\Models\Semester::class)->create();
         factory(Fce\Models\Section::class)->create();
-        factory(Fce\Models\Evaluation::class)->create();
+        $this->call(EvaluationTableSeeder::class);
 
         Model::reguard();
     }
