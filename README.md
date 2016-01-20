@@ -1,4 +1,6 @@
 ## FCE.
+
+[![Join the chat at https://gitter.im/BrainMaestro/FCE](https://badges.gitter.im/BrainMaestro/FCE.svg)](https://gitter.im/BrainMaestro/FCE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 This system was designed to replace the existing paper-driven evaluations used by the university to save on costs and be more environmentally friendly.
 
 ### Features
